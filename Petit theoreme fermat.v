@@ -145,7 +145,6 @@ intros. rewrite mult. rewrite mult with x a. rewrite mult with y a.
 induction a. trivial. simpl. rewrite IHa.
 induction y. rewrite ?zero. rewrite ?minus. reflexivity.
 a-b+(c-d)=a+c-(b+d)
-
 (*induction a. intros. rewrite ?zero. trivial.*)
 induction x. trivial.
 destruct y. simpl. symmetry. apply minus.
@@ -155,7 +154,7 @@ Qed.*)
  
  
 (* Puissances *)
-Function pow (n m:nat) : nat :=
+Fixpoint pow (n m:nat) : nat :=
   match m with
   | 0 => 1
   | S k => n * (pow n k)
@@ -386,7 +385,7 @@ Qed.
  
  
 (* Combinaison *)
-Function combi (k n:nat) {struct n} : nat :=
+Fixpoint combi (k n:nat) {struct n} : nat :=
   match k,n with
   | 0,_ => 1
   | S k',0 => 0
@@ -436,7 +435,7 @@ Qed.
  
  
 (* Sommation *)
-Function somme (init long:nat) (f:nat -> nat) : nat :=
+Fixpoint somme (init long:nat) (f:nat -> nat) : nat :=
   match long with
   | 0 => f init
   | S k => (f init) + (somme (S init) k f)
@@ -539,3 +538,4 @@ assert (a <= a ** p'). rewrite Heqp'. apply le_pow.
 rewrite unchange. rewrite plus. symmetry. rewrite parenth, plus. apply simplif, unchange.
 assumption. apply le_transit with (a**p'). assumption. apply le_diff with (x0*p'). apply plus.
 Qed.
+
